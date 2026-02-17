@@ -1,9 +1,5 @@
-using Application.Instructors;
-using Application.Instructors.Inputs;
-using Application.Modules.Instructors.Inputs;
-using Domain.Instructors.Repositories;
-using Infrastructure.Persistence.Contexts;
-using Infrastructure.Persistence.Repositories.Instructors;
+using Application.Extensions;
+using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,11 +8,9 @@ builder.Services.AddOpenApi();
 builder.Services.AddCors();
 builder.Services.AddValidation();
 
-builder.Services.AddDbContext<CourseOnlineDbContext>(options => 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CourseOnlineDB")));
+builder.Services.AddInfrastructure(builder.Configuration, builder.Environment);
+builder.Services.AddApplication(builder.Configuration, builder.Environment);
 
-builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
-builder.Services.AddScoped<IInstructorService, InstructorService>();
 
 var app = builder.Build();
 

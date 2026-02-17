@@ -7,7 +7,7 @@ namespace Application.Instructors;
 
 public sealed class InstructorService(IInstructorRepository repo) : IInstructorService
 {
-    Task<Result<Instructor>> IInstructorService.CreateInstructorAsync(CreateInstructorInput input, CancellationToken ct)
+    Task<Result<Instructor?>> IInstructorService.CreateInstructorAsync(CreateInstructorInput input, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
