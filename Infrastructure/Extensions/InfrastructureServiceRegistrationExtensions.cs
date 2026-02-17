@@ -24,6 +24,7 @@ public static class InfrastructureServiceRegistrationExtensions
         }
 
         services.AddScoped<IInstructorRepository, InstructorRepository>();
+        services.AddScoped<IInstructorRoleRepository, InstructorRoleRepository>();
 
         return services;
     }

@@ -2,7 +2,7 @@
 using Application.Instructors.Inputs;
 using Domain.Instructors;
 
-namespace Application.Instructors;
+namespace Application.Instructors.Contracts;
 
 public interface IInstructorService
 {

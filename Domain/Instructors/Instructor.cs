@@ -4,7 +4,7 @@ namespace Domain.Instructors;
 
 public sealed class Instructor
 {
-    public Instructor(string? id, string? firstName, string? lastName, string? email, string? phoneNumber)
+    public Instructor(string? id, string? firstName, string? lastName, string? email, string? phoneNumber, InstructorRole role)
     {
         if (string.IsNullOrWhiteSpace(id))
             throw new DomainValidationException("Id is required.");
@@ -18,16 +18,21 @@ public sealed class Instructor
         if (string.IsNullOrWhiteSpace(email))
             throw new DomainValidationException("Email is required.");
 
+        if (role is null) 
+            throw new DomainValidationException("Role is required.");
+
         Id = id.Trim();
         FirstName = firstName.Trim();
         LastName = lastName.Trim();
         Email = email.Trim();
         PhoneNumber = string.IsNullOrWhiteSpace(phoneNumber) ? null : phoneNumber.Trim();
+        Role = role;
     }
 
     public string Id { get; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string Email { get; set; }
-    public string? PhoneNumber { get; set; }
+    public string FirstName { get; private set; }
+    public string LastName { get; private set; }
+    public string Email { get; private set; }
+    public string? PhoneNumber { get; private set; }
+    public InstructorRole Role { get; private set; }
 }
