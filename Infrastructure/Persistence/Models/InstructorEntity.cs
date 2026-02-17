@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Persistence.Entities;
+﻿using System.Security;
+
+namespace Infrastructure.Persistence.Entities;
 
 public sealed class InstructorEntity
 {
@@ -10,4 +12,15 @@ public sealed class InstructorEntity
     public required DateTime CreatedAt { get; set; }
     public required DateTime ModifiedAt { get; set; }
     public byte[] RowVersion { get; set; } = null!;
+
+    public int InstructorRoleId { get; set; }
+    public InstructorRoleEntity InstructorRole { get; set; } = null!;
+}
+
+public sealed class InstructorRoleEntity
+{
+    public int Id { get; set; }
+    public required string RoleName { get; set; }
+
+    public ICollection<InstructorEntity> Instructors { get; set; } = [];
 }

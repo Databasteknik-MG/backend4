@@ -10,7 +10,9 @@ public sealed class InstructorRepository(CourseOnlineDbContext context) : Reposi
 {
     public async Task<Instructor?> GetByEmailAsync(string email, CancellationToken ct)
     {
-        var entity = await Set.AsNoTracking().FirstOrDefaultAsync(x => x.Email == email, ct);
+        var entity = await Set
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Email == email, ct);
         return entity is null ? default : ToModel(entity);
     }
 

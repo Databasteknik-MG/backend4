@@ -11,7 +11,6 @@ builder.Services.AddValidation();
 builder.Services.AddInfrastructure(builder.Configuration, builder.Environment);
 builder.Services.AddApplication(builder.Configuration, builder.Environment);
 
-
 var app = builder.Build();
 
 app.MapOpenApi();
