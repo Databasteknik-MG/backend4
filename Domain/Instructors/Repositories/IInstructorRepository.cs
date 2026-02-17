@@ -1,6 +1,6 @@
 ﻿using Domain.Common.Base;
 
-namespace Domain.Instructors;
+namespace Domain.Instructors.Repositories;
 
 public interface IInstructorRepository : IRepositoryBase<Instructor, string>
 {

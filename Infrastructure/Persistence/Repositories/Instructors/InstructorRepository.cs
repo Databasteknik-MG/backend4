@@ -1,4 +1,5 @@
 ﻿using Domain.Instructors;
+using Domain.Instructors.Repositories;
 using Infrastructure.Persistence.Contexts;
 using Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;

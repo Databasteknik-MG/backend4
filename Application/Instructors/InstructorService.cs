@@ -1,35 +1,38 @@
-﻿using Application.Instructors.Inputs;
-using Application.Instructors.Outputs;
+﻿using Application.Common.Results;
+using Application.Instructors.Inputs;
 using Domain.Instructors;
+using Domain.Instructors.Repositories;
 
 namespace Application.Instructors;
 
-public interface IInstructorService
-{
-    Task<InstructorResult> CreateAsync(CreateInstructorInput input, CancellationToken ct);
-    Task<InstructorResult<Instructor>> GetByIdAsync(string id, CancellationToken ct);
-    Task<InstructorResult<Instructor>> GetByEmailAsync(string email, CancellationToken ct);
-    Task<InstructorResult<IReadOnlyList<Instructor>>> GetAllAsync(CancellationToken ct);
-}
-
 public sealed class InstructorService(IInstructorRepository repo) : IInstructorService
 {
-    public async Task<InstructorResult> CreateAsync(CreateInstructorInput input, CancellationToken ct)
+    Task<Result<Instructor>> IInstructorService.CreateInstructorAsync(CreateInstructorInput input, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
-    public Task<InstructorResult<IReadOnlyList<Instructor>>> GetAllAsync(CancellationToken ct)
+    Task<Result> IInstructorService.DeleteInstructorAsync(string id, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
-    public Task<InstructorResult<Instructor>> GetByEmailAsync(string email, CancellationToken ct)
+    Task<Result<Instructor?>> IInstructorService.GetInstructorByEmailAsync(string email, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
-    public Task<InstructorResult<Instructor>> GetByIdAsync(string id, CancellationToken ct)
+    Task<Result<Instructor?>> IInstructorService.GetInstructorByIdAsync(string id, CancellationToken ct)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<IReadOnlyList<Instructor>> IInstructorService.GetInstructorsAsync(CancellationToken ct)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<Result<Instructor?>> IInstructorService.UpdateInstructorAsync(UpdateInstructorInput input, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
