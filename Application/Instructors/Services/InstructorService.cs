@@ -19,7 +19,7 @@ public sealed class InstructorService(IInstructorRepository instructorRepository
 
         var role = await roleRepository.GetByIdAsync(input.RoleId, ct);
         if (role is null)
-            return Result<Instructor?>.BadRequest("Instructor role is required.");
+            return Result<Instructor?>.NotFound("Instructor role was not found.");
 
         var instructor = new Instructor(
             Guid.NewGuid().ToString(),
@@ -37,24 +37,43 @@ public sealed class InstructorService(IInstructorRepository instructorRepository
             : Result<Instructor?>.Ok(created);
     }
 
-    public Task<Result> DeleteInstructorAsync(string id, CancellationToken ct)
+    public async Task<Result> DeleteInstructorAsync(string id, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(id))
+            return Result.BadRequest("Id is required.");
+
+        var deleted = await instructorRepository.RemoveAsync(id, ct);
+        return !deleted
+            ? Result.Error("Instructor was not removed.")
+            : Result.Ok();
     }
 
     public async Task<Result<Instructor?>> GetInstructorByEmailAsync(string email, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        if(string.IsNullOrWhiteSpace(email))
+            return Result<Instructor?>.BadRequest("Email is required.");
+
+        var instructor = await instructorRepository.GetByEmailAsync(email, ct);
+        return instructor is null
+            ? Result<Instructor?>.NotFound("Instructor not found.")
+            : Result<Instructor?>.Ok(instructor);
     }
 
     public async Task<Result<Instructor?>> GetInstructorByIdAsync(string id, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(id))
+            return Result<Instructor?>.BadRequest("Id is required.");
+
+        var instructor = await instructorRepository.GetByIdAsync(id, ct);
+        return instructor is null
+            ? Result<Instructor?>.NotFound("Instructor not found.")
+            : Result<Instructor?>.Ok(instructor);
     }
 
     public async Task<IReadOnlyList<Instructor>> GetInstructorsAsync(CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var instructors = await instructorRepository.GetAllAsync(ct);
+        return instructors;
     }
 
     public async Task<Result<Instructor?>> UpdateInstructorAsync(UpdateInstructorInput input, CancellationToken ct)

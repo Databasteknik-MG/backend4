@@ -4,6 +4,14 @@ namespace Domain.Instructors;
 
 public sealed class InstructorRole
 {
+    public InstructorRole(string roleName)
+    {
+        if (string.IsNullOrWhiteSpace(roleName))
+            throw new DomainValidationException("RoleName is required.");
+
+        RoleName = roleName.Trim();
+    }
+
     public InstructorRole(int id, string roleName)
     {
         if (id < 1)

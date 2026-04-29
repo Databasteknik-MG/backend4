@@ -48,8 +48,16 @@ public abstract class RepositoryBase<TModel, TKey, TEntity, TDbContext>(TDbConte
         var entity = await Set.FindAsync([id], ct);
         if (entity is null) return false;
 
-        Set.Remove(entity);
-        await Context.SaveChangesAsync(ct);
-        return true;
+        try
+        {
+            Set.Remove(entity);
+            await Context.SaveChangesAsync(ct);
+            return true;
+
+        }
+        catch (DbUpdateException)
+        {
+            return false;
+        }
     }
 }

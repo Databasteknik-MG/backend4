@@ -8,7 +8,6 @@ namespace Infrastructure.Persistence.Repositories.Instructors;
 
 public sealed class InstructorRepository(CourseOnlineDbContext context) : RepositoryBase<Instructor, string, InstructorEntity, CourseOnlineDbContext>(context), IInstructorRepository
 {
-
     public override async Task<IReadOnlyList<Instructor>> GetAllAsync(CancellationToken ct)
     {
         var entities = await Set
@@ -18,7 +17,7 @@ public sealed class InstructorRepository(CourseOnlineDbContext context) : Reposi
 
         return [.. entities.Select(ToModel)];
     }
-
+    
     public override async Task<Instructor?> GetByIdAsync(string id, CancellationToken ct)
     {
         var entity = await Set
@@ -38,7 +37,6 @@ public sealed class InstructorRepository(CourseOnlineDbContext context) : Reposi
 
         return entity is null ? default : ToModel(entity);
     }
-
 
     protected override InstructorEntity ToEntity(Instructor model)
     {
